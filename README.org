@@ -16,3 +16,18 @@ The document uses FiraSans for as fontstyle.
 | ~nicematrix~ | For presenting matrices and tables in a cleaner syntax |
 | ~graphicx~   | Inserting images into the document                     |
 
+*** Adding Custom Commands
+
+While it is up to the user to add whatever they wish, to keep track all of
+the custom stuff it is recommend to put it in a position such as follows:
+
+#+begin_src latex
+%--CUSTOM-COMMANDS---------------------------------------------------------
+\newcommand{...}
+\renewcommnad{...}
+\def\lorem
+%--------------------------------------------------------------------------
+#+end_src
+
+This would allow you to easily keep all of them organised. Then what do I
+know, I am just a README file.
