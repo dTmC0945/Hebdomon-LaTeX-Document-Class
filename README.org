@@ -5,3 +5,14 @@ Hebdomon is a latex documentclass for streamlining document creation in
 latex.
 
 Currently it supports minted out of the box.
+
+The following packages are loaded for all OPTIONS
+
+The document uses FiraSans for as fontstyle.
+
+| PACKAGE    | DEFINITION                                             |
+|------------+--------------------------------------------------------|
+| ~minted~     | For use in code presentation (requires python)         |
+| ~nicematrix~ | For presenting matrices and tables in a cleaner syntax |
+| ~graphicx~   | Inserting images into the document                     |
+
