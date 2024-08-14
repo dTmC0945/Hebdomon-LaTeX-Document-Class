@@ -1,4 +1,6 @@
-% Hebdomon document class for use in report and assessment writing.
+% Hebdomon document class for use in report and assessment writing
+% Written by D. T. McGuiness: dtm@mci4me.at
+
 % v0.1 - Angry Avocado [WS2024]
 
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
