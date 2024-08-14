@@ -1,6 +1,7 @@
 
 * Hebdomon - A LaTeX Class for Report Writing
 
+Package is currently on CTAN ([[https://www.ctan.org/pkg/hebdomon][Link]])
 
 ** Table of Contents :TOC_5:
 - [[#hebdomon---a-latex-class-for-report-writing][Hebdomon - A LaTeX Class for Report Writing]]
