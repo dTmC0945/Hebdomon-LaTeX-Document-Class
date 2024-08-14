@@ -1,6 +1,14 @@
 
 * Hebdomon - A LaTeX Class for Report Writing
 
+
+** Table of Contents :TOC_5:
+- [[#hebdomon---a-latex-class-for-report-writing][Hebdomon - A LaTeX Class for Report Writing]]
+  - [[#introduction][Introduction]]
+    - [[#adding-custom-commands][Adding Custom Commands]]
+
+** Introduction
+
 Hebdomon is a latex documentclass for streamlining document creation in
 latex.
 
@@ -8,7 +16,7 @@ Currently it supports minted out of the box.
 
 The following packages are loaded for all OPTIONS
 
-The document uses FiraSans for as fontstyle.
+The document uses [[https://fonts.google.com/specimen/Fira+Sans][FiraSans]] for as fontstyle.
 
 | PACKAGE    | DEFINITION                                             |
 |------------+--------------------------------------------------------|
@@ -29,5 +37,6 @@ the custom stuff it is recommend to put it in a position such as follows:
 %--------------------------------------------------------------------------
 #+end_src
 
-This would allow you to easily keep all of them organised. Then what do I
-know, I am just a README file.
+This would allow you to easily keep all of them organised.
+
+Then what do I know, I am just a README file.
