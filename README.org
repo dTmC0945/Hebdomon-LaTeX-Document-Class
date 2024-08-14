@@ -5,7 +5,10 @@
 ** Table of Contents :TOC_5:
 - [[#hebdomon---a-latex-class-for-report-writing][Hebdomon - A LaTeX Class for Report Writing]]
   - [[#introduction][Introduction]]
+    - [[#package-options][Package Options]]
+      - [[#tcolorbox][tcolorbox]]
     - [[#adding-custom-commands][Adding Custom Commands]]
+  - [[#version-information][Version Information]]
 
 ** Introduction
 
@@ -14,15 +17,59 @@ latex.
 
 Currently it supports minted out of the box.
 
+The options of the class are as follows:
+
+| OPTION     | DEFINITION                             |
+|------------+----------------------------------------|
+| ~minted~     | Code Presentation (backend via Python) |
+| ~lstlisting~ | Code Presentation                      |
+| ~draw~       | Activates PGF/TikZ packages            |
+
 The following packages are loaded for all OPTIONS
 
 The document uses [[https://fonts.google.com/specimen/Fira+Sans][FiraSans]] for as fontstyle.
 
+The following packages are loaded for all OPTIONS for user to interact:
+
 | PACKAGE    | DEFINITION                                             |
 |------------+--------------------------------------------------------|
-| ~minted~     | For use in code presentation (requires python)         |
 | ~nicematrix~ | For presenting matrices and tables in a cleaner syntax |
 | ~graphicx~   | Inserting images into the document                     |
+| ~booktabs~   | To mainly acces ~\midrule~, ~\toprule~, and ~\bottomrule~    |
+| ~biblatex~   |                                                        |
+| ~lmodern~    |                                                        |
+| ~FiraSans~   |                                                        |
+| ~caption~    |                                                        |
+| ~tcolorbox~  | For creating boxed environments                        |
+|            |                                                        |
+
+Some details regarding the packages are as follows:
+
+*** Package Options
+
+**** tcolorbox
+
+The following sub-libraries are loaded
+
+| OPTION    | DEFINITION |
+|-----------+------------|
+| ~breakable~ |            |
+| ~minted~    |            |
+| ~skins~     |            |
+| ~theorems~  |            |
+| ~hooks~     |            |
+| ~most~      |            |
+
+The following packages are used mainly for the infrastructure of the class
+and is not meant to be used by the end user:
+
+| PACKAGE    | DEFINITION                                             |
+|------------+--------------------------------------------------------|
+| ~nicematrix~ | For presenting matrices and tables in a cleaner syntax |
+| ~graphicx~   | Inserting images into the document                     |
+| ~booktabs~   | To mainly acces ~\midrule~, ~\toprule~, and ~\bottomrule~    |
+| ~biblatex~   |                                                        |
+
 
 *** Adding Custom Commands
 
@@ -40,3 +87,7 @@ the custom stuff it is recommend to put it in a position such as follows:
 This would allow you to easily keep all of them organised.
 
 Then what do I know, I am just a README file.
+
+** Version Information
+
+v0.1 Angry Avocado (WS 2024)
