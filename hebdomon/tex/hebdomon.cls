@@ -294,8 +294,6 @@
 			}%
 	}%
 
-	%\usemintedstyle{catppuccin-latte}
-
 	\definecolor{catback}{HTML}{585b70}
 	\definecolor{catground}{HTML}{eff1f5}
 
