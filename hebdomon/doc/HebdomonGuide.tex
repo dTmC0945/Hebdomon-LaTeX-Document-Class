@@ -1,34 +1,36 @@
 % Load the base class
-\documentclass[minted, draw]{../tex/hebdomon}
-
+\documentclass[minted, draw, cover = contour]{../tex/hebdomon}
+%    
 \begin{document}
-
-\title{Hebdomon \\ Report and Documentation Standard}
-\author{v0.1 - Angry Avocado}
+% 
+%----------------------------------------------------------------------------------------------
+\Title{Hebdomon Report and Documentation Standard}
+\Institution{Management Center Innsbruck}
+\SubTitle{v0.1.1 - Angry Avocado}
 \StudentName{D. T. McGuiness}
-\date{dtm@mci4me.at}
+\Email{dtm@mci4me.at}
+\StudentNumber{21001}
+\Semester{5}
+\Degree{B.Sc}
+\ModuleName{Robotic \& Vision}
+\MakeTitle
+%----------------------------------------------------------------------------------------------
+\CopyRight
+\StudentDeclaration
+%----------------------------------------------------------------------------------------------
 
-\publishers{
-  \begin{tabular}[!b]{rl}
-  \textbf{Student Name} & xxxxx \\[3pt]
-  \textbf{Student Number} & xxxxx \\[3pt]
-  \textbf{Module Name} & xxxxx
-  \end{tabular}\\[20pt]
-  }
-
-\maketitle
-\dominitoc
 \tableofcontents
 \newpage
 
 \Chapter{The Hebdomon Template}
 \Section{Introduction}
 
-This document is designed to abstract a significant portion of the
-commands and MACROs to hide away the programming aspect and ease into
-LaTeX programming. While some commands are have been changed \hlight{NO}
-command has been overwritten so feel free to use the original ones
-if you wish.
+This document is designed to create an abstraction layer for the \LaTeX\, and \TeX\,
+commands and MACROs to hide away the programming aspect (i.e., command declarations) and
+ease into LaTeX programming as a means of introduction.
+
+While some commands are have been changed \hlight{NO} command (or primitive) has been
+overwritten so feel free to use the original ones if you wish.
 
 \begin{warning}
 	As to the best of the authors knowledge, the original commands should work
@@ -38,23 +40,23 @@ if you wish.
 \Section{Title Formatting}
 
 To begin a new content, always start the content with a chapter heading. To
-insert the chapter with an additional \lstinline[columns=fixed]{minitoc}
-use \lstinline[columns=fixed]{\Chapter}, which produces an heading as
-you see at the beginning of this page, to have a heading without
-a \lstinline[columns=fixed]{minitoc} use the standard
-\lstinline[columns=fixed]{\chapter}.
+insert the chapter with an additional \pcode{minitoc}
+use \pcode{\Chapter} command, which produces an heading as
+you see at the beginning of this page.
+\\\\
+To have a heading without a \pcode{minitoc} use the standard \pcode{\chapter}.
 
 The document relies on the user to use the \hlight{correct} title commands to
 keep the formatting consistent. The commands that starting with a
 capital letter are the overloaded commands of the standard ones.
-The following are the current ones:
+The following are the current ones in this version:
 %
-\begin{code}{python}
-\Chapter{...}
-\Section{...}
-\Subsection{...}
-\Subsubsection{...}
-\end{code}
+\begin{Code}{latex}{Types of Headers}
+	\Chapter{...} % Allows entering chapters with mini table of contents
+	\Section{...} % Allows section titles with blue tint
+	\Subsection{...} % Allows subsection titles with blue tint
+	\Subsubsection{...} % Allows subsubsection titles with blue tint
+\end{Code}
 %
 \begin{warning}
 	Unless there is a specific reason, it is suggested to use the aforementioned
@@ -78,47 +80,48 @@ standard package \pcode{\usepackage{geometry}} which is defined in the
 %
 The image positioning could be done with the following code snippet:
 %
-\begin{code}{latex}
-\begin{figure}[ht]
-  \centering
-  \includegraphics[options]{figures/path.pdf}
-  \caption{\label{fig:label} }
-\end{figure}
-\end{code}
+\begin{Code}{latex}{A Figure Environment}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[options]{path.pdf}
+		\caption{}\label{fig:...}
+	\end{figure}
+\end{Code}
 %
 Here there are a few options worth mentioning:
-%
+% 
 \begin{hgitemize}
-	\item[\pcode{figures/path}] The place where the image is kept. If the
-	image is in the same folder where the main.tex file resides, it is as
-	simple as writing the files name. If the file is in a folder called
-	image, just write \pcode{image/innsbruck.jpg}. Finally if the image is
-	in a higher directory (i.e., image is in folderA/innsbruck.jpg and the
-	main tex is in folderA/document/main.tex then the path becomes \pcode{../innsbruck.jpg}
+	\item[\pcode{path.pdf}] The place where the image is kept. If the
+	image is in the same folder where the \pcode{main.tex} file resides, it is as
+	simple as writing the files name. If the file (i.e., \pcode{innsbruck.jpg}) is in a
+	folder called \pcode{image}, just write \pcode{image/innsbruck.jpg}.
+	\item[] Finally if the image is in a higher directory (i.e., image is in
+	\pcode{folderA/innsbruck.jpg} and the main tex is in \pcode{folderA/document/main.tex} then
+	path becomes \pcode{../innsbruck.jpg}
 	\item[\pcode{\caption{..}}] Where you write the caption of the image.
-	For consistency make sure every image has a caption as if the image does not
-	need a caption, maybe it not be present to begin with.
+	For consistency make sure every image has a caption. If the image does not
+	need a caption, maybe it should not be present in the document to begin with.
 	\item[\pcode{label{}}] This is an identifier for you to use when you need
 	to cite this Figure in a place somewhere. For example if you were to have
 	and image with the following:
 \end{hgitemize}
 %
-\begin{code}{latex}
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\textwidth]{figures/path.pdf}
-  \caption{A photo I found on the web.}\label{fig:innsbruck}
-\end{figure}
-\end{code}
-%
+\begin{Code}{latex}{A filled Figure environment}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=\textwidth]{figures/path.pdf}
+		\caption{A photo I found on the web.}\label{fig:innsbruck}
+	\end{figure}
+\end{Code}
+% 
 \begin{hgitemize}
 	\item[] Now this image is referenced as \pcode{fig:innsbruck}, which
 	means if we write the following:
 \end{hgitemize}
 %
-\begin{code}{text}
-To see the image, have a look at Figure \ref{fig:innsbruck}
-\end{code}
+\begin{Code}{text}{Referencing an Image}
+	To see the image, have a look at Figure \ref{fig:innsbruck}
+\end{Code}
 %
 This line of command will be presented as
 %
@@ -140,17 +143,17 @@ Finally you can see the image here as well.
 \Section{Defined Environments}
 %
 \begin{hgitemize}
-	\item[\pcode{excerpt}] The template relies on the excellent \lstinline[columns=fixed]{tcolorbox}
-	package for formatting the boxes within the document and for that end different styles were created.
-	\item[] Sometimes one needs to quote either a proverb or to create drama, for this use
-	the \lstinline[columns=fixed]{excerpt} environment with the following notation and effect.
+	\item[\pcode{Excerpt}] The template relies on the excellent \pcode{tcolorbox} package for
+	formatting the boxes within the document and for that end different styles were created.
+	\item[] Sometimes one needs to quote either a proverb, for this use
+	the \pcode{Excerpt} environment with the following notation and effect.
 \end{hgitemize}
 %
-\begin{code}{latex}
-\begin{excerpt}
-  To be, or not to be...
-\end{excerpt}
-\end{code}
+\begin{Code}{latex}{An Excerpt Snippet}
+	\begin{Excerpt}
+		To be, or not to be...
+	\end{Excerpt}
+\end{Code}
 %
 \begin{hgitemize}
 	\item[] Compiling this code snippet would show as in the document
@@ -160,53 +163,74 @@ Finally you can see the image here as well.
 	To be, or not to be...
 \end{excerpt}
 %
-\begin{itemize}[leftmargin=!,labelindent=-29.2pt]
-	\item[\pcode{code}] During the preparation of your document, it is useful to showcase
-	      some code either in the shape of all the document or a snippet of it.
-	      There are two (\hlight{2}) ways of doing this where the first one will be discussed here.
+\begin{hgitemize}
+	\item[\pcode{Code}] During the preparation of your document, it is useful to showcase your
+	some either as a snippet or in its entirety.
+	\item[] There are two (\hlight{2}) ways of doing this where the first one will be discussed here.
 	\item[] For example to print out a hello world in python, please use the following environment
-\end{itemize}
+\end{hgitemize}
 %
 \begin{verbatim}
-\begin{code}{python}
-print("Hello, World!")
-\end{code}
+	\begin{Code}{python}{Hello, World!}
+		print("Hello, World!")
+	\end{Code}
 \end{verbatim}
 %
 Producing the following:
 %
-\begin{code}{python}
-print("Hello, World!")
-\end{code}
-%
-The class also come with some predefined environments to modify the behaviour/aesthetics of the document.
-%
-Highlighting text is \hlight{very easy}, here is an example on how to write one.
 
-\begin{code}{latex}
-Highlighting text is \hlight{very easy}, here is an example:
-\end{code}
-
-\begin{itemize}[leftmargin=!,labelindent=-29.2pt]
-	\item[\pcode{example}] Sometimes you need to showcase an example or
-	      need to highlight a certain idea.
-	      For these things the environment Example could be useful.
+\begin{Code}{python}{Hello, World!}
+	print("Hello, World!")
+\end{Code}
+%
+\pcode{minted} supports more than 500+ styles currently which you can have a
+look at their website.
+%
+\begin{hgitemize}
+	\item[\pcode{Example}] Sometimes you need to showcase an example or
+	need to highlight a certain idea.
+	For these things the environment Example could be useful.
 	\item[] For example to show as simple example or give a slight attention to a topic you can do the following.
-\end{itemize}
-
+\end{hgitemize}
+%
 \begin{example}
 	This is an example. This could be anything which you would like to have a certain amount of
 	attention but not too much as to distract from the flow of the document.
 \end{example}
-
-\begin{itemize}[leftmargin=!,labelindent=-29.2pt]
-	\item[\pcode{highlight}] Or sometimes you need to give a clear break to the flow of the
-	      document and ask the reader to look at your banner. For that use highlight.
-\end{itemize}
+%
+\begin{hgitemize}
+	\item[\pcode{Highlight}] Or sometimes you need to give a clear break to the flow of the
+	document and ask the reader to look at your banner. For that use highlight.
+\end{hgitemize}
 
 \begin{highlight}
 	Hey! Pay attention as this is a highlight box.
 \end{highlight}
+
+\begin{hgitemize}
+	\item[\pcode{Hgitemize}] Similar to the itemize environment with the only modification
+	being an added indentation.
+\end{hgitemize}
+
+\Section{Defined Commands}
+
+The following are the commands used in the document:
+
+\begin{hgitemize}
+	\item[\pcode{hlight}] Highlighting text is \hlight{very easy}, here is an example on how to write one.
+\end{hgitemize}
+
+\begin{Code}{latex}{Highlighting Text}
+	Highlighting text is \hlight{very easy}, here is an example:
+\end{Code}
+
+\begin{hgitemize}
+	\item[\pcode{pcode}] Allows you to enter code snippets inline such as \pcode{this} example.
+\end{hgitemize}
+
+\begin{Code}{latex}{Inline Code Snippets}
+	Allows you to enter code snippets inline such as \pcode{this} example.
+\end{Code}
 
 \Subsection{Writing Equations}
 %
@@ -220,11 +244,11 @@ following equation:
 %
 In code form this would be written as:
 %
-\begin{code}{latex}
+\begin{Code}{latex}{Entering an equation without a reference}
 	\begin{equation*}
 		f(x) = x^2 + 2x + 1
 	\end{equation*}
-\end{code}
+\end{Code}
 %
 All equations that has their newline and centre staged are mostly written
 in an environment where it has a \pcode{begin} and an \pcode{end}. You may
@@ -240,11 +264,11 @@ in page 8. For a numbered equation like the following
 %
 You only need to do:
 %
-\begin{code}{latex}
+\begin{Code}{latex}{Entering an equation with a reference}
 	\begin{equation}\label{eq:quad}
 		f(x) = x^2 + 2x + 1
 	\end{equation}
-\end{code}
+\end{Code}
 % 
 where \pcode{\label{eq:quad}} is the equation reference label.
 %
@@ -255,7 +279,7 @@ You could also make matrices as well as \pcode{amsmath} is preloaded into this t
 Finally, no template is done without someone telling you how a table should be designed.
 %
 Below is a standard table
-%
+% 
 \begin{table}[!ht]
 	\begin{NiceTabular}{rX}[rules/color=[gray]{0.9},rules/width=1pt]
 		\CodeBefore
@@ -276,25 +300,62 @@ Below is a standard table
 %
 And the code used to generate it:
 %
-\begin{code}{latex}
-\begin{table}[!ht]
-	\begin{NiceTabular}{rX}[rules/color=[gray]{0.9},rules/width=1pt]
-		\CodeBefore
-		\rowcolors{1}{black!5}{}
-		\rowcolors{3}{blue!5}{}
-		\Body
-		\toprule
-		\textbf{Section}      & \textbf{Scientific Method Step}    \\
-		\midrule
-		\textbf{Introduction} & states   hypothesis                \\
-		\textbf{Methods}      & how you tested hypothesis          \\
-		\textbf{Results}      & provides raw  data collected       \\
-		\textbf{Discussion}   &  whether it support the hypothesis \\
-		\bottomrule
-	\end{NiceTabular}
-	\caption{A Detailed look into the scientific method.}
-\end{table}
-\end{code}
+\begin{Code}{latex}{A NiceTabular Table}
+	\begin{table}[!ht]
+		\begin{NiceTabular}{rX}[rules/color=[gray]{0.9},rules/width=1pt]
+			\CodeBefore
+			\rowcolors{1}{black!5}{}
+			\rowcolors{3}{blue!5}{}
+			\Body
+			\toprule
+			\textbf{Section}      & \textbf{Scientific Method Step}   \\
+			\midrule
+			\textbf{Introduction} & states   hypothesis               \\
+			\textbf{Methods}      & how you tested hypothesis         \\
+			\textbf{Results}      & provides raw  data collected      \\
+			\textbf{Discussion}   & whether it support the hypothesis \\
+			\bottomrule
+		\end{NiceTabular}
+		\caption{A Detailed look into the scientific method.}
+	\end{table}
+\end{Code}
+
+\newpage
+
+\Section{Cover Styles}
+
+Currently the document supports four (\hlight{4}) styles of cover which can be access from the
+document class with \pcode{cover} option.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\pagewidth]{../coverArts/SpectrumWaves.pdf}
+	\caption{Cascading waveforms (options \pcode{cover = waves}).}
+\end{figure}
+
+\newpage
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\pagewidth]{../coverArts/DomainColouring.pdf}
+	\caption{Colouring of a complex domain (options \pcode{cover = complex}).}
+\end{figure}
+
+\newpage
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\pagewidth]{../coverArts/RecursiveVoronoi.pdf}
+	\caption{Colouring of a Voronoi Plot (options \pcode{cover = voronoi}).}
+\end{figure}
+
+\newpage
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\pagewidth]{../coverArts/ContourShadow.png}
+	\caption{Colouring of a Voronoi Plot (options \pcode{cover = contour}).}
+\end{figure}
 
 \Chapter{Plotting your data using PGF/TikZ}
 
@@ -321,7 +382,7 @@ It is of course up to the user to select which graphical software to produce the
 visual components but unless it requires complex functions/processing, it would be be easier
 to have it in PGF/TikZ format for easy editing/maintenance.
 
-For this manual we will be looking at the three (\hlight{3}) plot types you may
+For this manual we will be looking at the two (\hlight{2}) plot types you may
 encounter in your studies.
 %
 \Subsection{A Simple 2D Plot}
@@ -351,26 +412,26 @@ Below is an example of a simple comparison of two (\hlight{2}) functions.
 %
 The image above is generated using the following code:
 
-\begin{code}{latex}
-\begin{figure}[!ht]
-  \centering
-  \begin{tikzpicture}
-    \begin{axis}[hebdomon, xlabel = \(x\), ylabel = {\(f(x)\)}]
-      % 
-      \addplot [domain=-10:10, samples=100,red]{x^3 - 7*x - 1};
-      \addlegendentry{\(x^2 - 2x - 1\)}
-      % 
-      \addplot [domain=-10:10, samples=100, blue]{x^2 + 6*x + 8};
-      % 
-      \addlegendentry{\(x^2 + 2x + 1\)}
-      % 
-    \end{axis}
-  \end{tikzpicture}
-  \caption{This is an example of a 2D PGF plot comparing
-  two functions where these functions are calculated using
-  PGF itself rather than entering/reading from data.}
-\end{figure}
-\end{code}
+\begin{Code}{latex}{A 2D PGF Plot}
+	\begin{figure}[!ht]
+		\centering
+		\begin{tikzpicture}
+			\begin{axis}[hebdomon, xlabel = \(x\), ylabel = {\(f(x)\)}]
+				% 
+				\addplot [domain=-10:10, samples=100,red]{x^3 - 7*x - 1};
+				\addlegendentry{\(x^2 - 2x - 1\)}
+				% 
+				\addplot [domain=-10:10, samples=100, blue]{x^2 + 6*x + 8};
+				% 
+				\addlegendentry{\(x^2 + 2x + 1\)}
+				% 
+			\end{axis}
+		\end{tikzpicture}
+		\caption{This is an example of a 2D PGF plot comparing
+			two functions where these functions are calculated using
+			PGF itself rather than entering/reading from data.}
+	\end{figure}
+\end{Code}
 
 As can be seen it is relatively standard to create plots. Some aspect
 which need mentioning.
@@ -386,6 +447,36 @@ which need mentioning.
 		      within the defined domain.
 	\end{itemize}
 \end{hgitemize}
+
+As seen the code uses a pre-defined style for plotting which in detail can be seen below:
+
+\begin{Code}{latex}{The hebdomon PGF style}
+	\pgfplotsset{
+		hebdomon/.style={
+				minor grid style={dotted, gray!50},
+				major grid style={dotted, gray!50},
+				%
+				grid = both,
+				minor tick num=2,
+				ytick align=outside,
+				xtick align=outside,
+				axis line style={draw=none},
+				axis lines = left,
+				%
+				line width=2pt,
+				%
+				legend style = {
+						line width=0.5pt
+					},
+				%
+				every non boxed x axis/.append style={x axis line style=-},
+				every non boxed y axis/.append style={y axis line style=-},
+				%
+			},
+	}
+\end{Code}
+
+\newpage
 
 \Subsection{Plotting 3D plots}
 
@@ -416,6 +507,7 @@ Below is the prototypical plot to showcase the 3D capabilities of PGF:
 
 And, of course the code for generating the plot is given as follows:
 
+<<<<<<< Updated upstream
 \begin{code}{latex}
 \begin{figure}[!ht]
   \centering
@@ -435,6 +527,27 @@ And, of course the code for generating the plot is given as follows:
   \caption{An example 3D plot done with PGFplots.}
 \end{figure}
 \end{code}
+=======
+\begin{Code}{latex}{A 3D PGF plot}
+	\begin{figure}[!ht]
+		\centering
+		\begin{tikzpicture}
+			\begin{axis}[view={25}{30},mark layer=like plot]
+				\addplot3 [
+					surf,
+					shader=faceted,
+					fill opacity=0.75,
+					samples=25,
+					domain=-4:4,
+					y domain=-4:4,
+					on layer=main,
+				] {x^2-y^2};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{An example 3D plot done wit PGFplots.}
+	\end{figure}
+\end{Code}
+>>>>>>> Stashed changes
 
 Some options worth mentioning are as follows:
 

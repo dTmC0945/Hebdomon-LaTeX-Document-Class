@@ -1,10 +1,8 @@
 % Hebdomon document class for use in report and assessment writing
 % Written by D. T. McGuiness: dtm@mci4me.at
 
-% v0.1 - Angry Avocado [WS2024]
-
-\NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesClass{hebdomon}[2024/08/08 v0.1 Report and Documentation standard]
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+\ProvidesClass{hebdomon}[2024-08-08 v0.1.1 Report and Documentation standard]
 
 % This document is based on the excellent KOMA Script scrreprt class
 % The following options are declared beforehand.
@@ -12,11 +10,157 @@
 \RequirePackage{ifthen} % require an if-else loop to
 % choose depending on the field
 
-% Allows students to choose which package for code printing.
-
 \newboolean{mnt} % set bool operator for minted
 \newboolean{lst} % set bool operator for lstlisting
 \newboolean{drw} % set bool operator for PGF/TikZ
+
+\RequirePackage{l3keys2e}
+
+% Define the version of the document
+\newtoks\Version
+\Version{v0.1.1 - Angry Avocado [WS2024]}
+
+\newtoks\Institution
+\newtoks\Title
+\newtoks\Email
+\newtoks\SubTitle
+\newtoks\StudentNumber
+\newtoks\ModuleName
+\newtoks\CoverStandard
+\newtoks\Semester
+\newtoks\Degree
+
+
+\DeclareKeys{
+	color.code = \colorlet{foocol}{#1},
+	cover.store = \CoverStyle
+}
+\ProcessKeyOptions
+
+\ifthenelse{\equal{\CoverStyle}{waves}}
+{
+	\newcommand{\imgPath}{
+		/Users/danielmcguiness/GitHub/Hebdomon-LaTeX-Document-Class/hebdomon/coverArts/SpectrumWaves.pdf
+	}
+}
+{}
+
+\ifthenelse{\equal{\CoverStyle}{complex}}
+{
+	\newcommand{\imgPath}{
+		/Users/danielmcguiness/GitHub/Hebdomon-LaTeX-Document-Class/hebdomon/coverArts/DomainColouring.pdf
+	}
+}
+{}
+
+
+\ifthenelse{\equal{\CoverStyle}{voronoi}}
+{
+	\newcommand{\imgPath}{
+		/Users/danielmcguiness/GitHub/Hebdomon-LaTeX-Document-Class/hebdomon/coverArts/RecursiveVoronoi.pdf
+	}
+}
+{}
+
+\ifthenelse{\equal{\CoverStyle}{contour}}
+{
+	\newcommand{\imgPath}{
+		/Users/danielmcguiness/GitHub/Hebdomon-LaTeX-Document-Class/hebdomon/coverArts/ContourShadow.png
+	}
+}
+{}
+
+\newcommand{\MakeTitle}{%
+	%
+	\pagenumbering{gobble}
+	%
+	\begin{tikzpicture}[remember picture,overlay]
+
+		% Include the cover image
+		\node[inner sep=0pt] at (current page.center)
+		{\includegraphics[width=5\paperwidth]{\imgPath}};
+
+		% Include the overlay to put in the text
+		\filldraw[fill=black!2, draw=none] (-10,-30) rectangle (20,-20);
+		\filldraw[fill=orange,draw=none] (-10,-20) rectangle (20,-20.2);
+
+		% Define the Institution Text
+		\node[text width=30 cm] at (13.5,1){
+			\begin{tcolorbox}[hbox, blockTemplate=white]
+				\Large\the\Institution
+			\end{tcolorbox}
+		};
+
+		% Define student information text (to be filled)
+		\node[inner sep=0pt, text width=30 cm, align=left, anchor=center] at (13.5,-23.5){
+			\textcolor{gray}{\LARGE \textbf{\the\Title}} \\ \vspace{2ex}
+			\Large \the\SubTitle \\ \vspace{2ex}
+
+			% Add a table to the cover to put student credential
+			\begin{tabular}{>{\raggedleft\arraybackslash}p{4cm}
+				>{\raggedright\arraybackslash}p{4.5cm}
+				>{\raggedleft\arraybackslash}p{3.5cm}
+				>{\raggedright\arraybackslash}p{3.5cm}}
+				\textbf{Student Name}   & \@author           & \textbf{E-mail}   & \the\Email    \\
+				\textbf{Student Number} & \the\StudentNumber & \textbf{Semester} & \the\Semester \\
+				\textbf{Module}         & \the\ModuleName    & \textbf{Degree}   & \the\Degree   \\
+			\end{tabular}
+		};
+	\end{tikzpicture}%
+	%
+	\newpage%
+	%
+	\pagenumbering{arabic}%
+	%
+}
+
+
+
+% \ifthenelse{\equal{\tess}{contour}}
+% {
+% 	\newgeometry{a4paper}
+% 	\renewcommand{\maketitle}{
+% 		\begin{tikzpicture}[remember picture,overlay]
+% 			\node[inner sep=0pt] at (current page.center)
+% 			{\includegraphics[width=1.5\paperwidth]{/Users/danielmcguiness/GitHub/Hebdomon-LaTeX-Document-Class/hebdomon/coverArts/contour-dropshadow.png}};
+% 			\filldraw[fill=black!2, draw=none] (-10,-30) rectangle (20,-20);
+% 			\filldraw[fill=orange,draw=none] (-10,-20) rectangle (20,-20.2);
+% 			\node[inner sep=0pt, text width=8 cm, anchor=mid] at (2,-21.5){
+% 				\textcolor{gray}{\LARGE \textbf{Digital Image Processing}} \\ \vspace{2ex}
+% 				\Large Individual Assignment \\ \vspace{4ex}
+% 				\Large \textbf{Student Name:} \\ \vspace{1ex}
+% 				\Large \textbf{Student Number:} \\
+% 			};
+% 		\end{tikzpicture}
+% 	}
+% 	\restoregeometry
+% }
+% {}%
+
+% \newcommand{\StudentNumber}{#1}
+
+% \ifthenelse{\equal{\tess}{complex}}
+% {
+% 	\newgeometry{a4paper}
+% 	\renewcommand{\maketitle}{
+% 		\begin{tikzpicture}[remember picture,overlay]
+% 			\node[inner sep=0pt] at (current page.center)
+% 			{\includegraphics[width=1.5\paperwidth]{/Users/danielmcguiness/GitHub/Hebdomon-LaTeX-Document-Class/hebdomon/coverArts/domain-coloring.pdf}};
+% 			\filldraw[fill=black!2, draw=none] (-10,-30) rectangle (20,-20);
+% 			\filldraw[fill=orange,draw=none] (-10,-20) rectangle (20,-20.2);
+% 			\node[inner sep=0pt, text width=8 cm, anchor=mid] at (2,-21.5){
+% 				\textcolor{gray}{\LARGE \textbf{\@title}} \\ \vspace{1ex}
+% 				\Large Individual Assignment \\ \vspace{2ex}
+% 				\Large \textbf{Student Name:} \StudentName \\ \vspace{1ex}
+% 				\Large \textbf{Student Number:} \StudentNumber\\
+% 			};
+% 		\end{tikzpicture}
+% 	}
+% 	\restoregeometry
+% }
+% {}%
+% \ExplSyntaxOff
+
 
 %-OPTION: set option to choose minted code printing package
 \DeclareOption{minted}{
@@ -47,16 +191,14 @@
 	chapterprefix = true,
 ]{scrreprt}
 
-% Page Geometry -----------------------------------------------------------
-% Define the default page geometry
-\RequirePackage[
-	left   = 3.0cm,
-	right  = 2.0cm,
-	top    = 2.5cm,
-	bottom = 2.5cm]{geometry}
+
+
+
+% Allows students to choose which package for code printing.
+\RequirePackage{nicematrix} % For modern table design
+
 
 % Required Packages -------------------------------------------------------
-\RequirePackage{nicematrix} % For modern table design
 \RequirePackage{booktabs}   % To access \midrule \toprule \bottomrule
 
 % For use in referencing purposes
@@ -67,9 +209,6 @@
 \RequirePackage{environ}    % To allow new environments with Environ
 
 
-\RequirePackage{lmodern}
-\RequirePackage[sfdefault]{FiraSans}
-
 \RequirePackage{minitoc}
 \RequirePackage{setspace}
 
@@ -79,12 +218,31 @@
 
 \RequirePackage{amsmath}
 
-\usepackage[labelfont=bf]{caption} % Set the caption style to bold
+\usepackage[labelfont=bf, tableposition = top]{caption} % Set the caption style to bold
 
 \RequirePackage{titlesec}
 
 % %%%%% ----- Colour Definitions ------ %%%%%
 \RequirePackage{xcolor}
+
+\RequirePackage{listings}
+
+
+\RequirePackage{tcolorbox}
+\tcbuselibrary{breakable, minted, skins,theorems, hooks, most}
+
+\RequirePackage{lmodern}
+\RequirePackage[sfdefault]{FiraSans}
+
+% Page Geometry -----------------------------------------------------------
+% Define the default page geometry
+\RequirePackage[
+	left   = 3.0cm,
+	right  = 2.0cm,
+	top    = 2.5cm,
+	bottom = 2.5cm]{geometry}
+
+
 
 % Define the MCI colours.
 \definecolor{mciRed}{HTML}{821131}
@@ -101,7 +259,6 @@
 % To make this class more compatible and avoid questions about pygments,
 % the author has decided to use listings for code presentation, instead of
 % minted.
-\RequirePackage{listings}
 
 \lstset{
 	aboveskip={1.3\baselineskip},
@@ -137,8 +294,7 @@
 % New Environment Definitions ---------------------------------------------
 % To create environments tcolorbox package is required to make them
 % aesthetically pleasing.
-\RequirePackage{tcolorbox}
-\tcbuselibrary{breakable, minted, skins,theorems, hooks, most}
+
 
 % %%%%% ----- tcolorbox Templates ----- %%%%%
 
@@ -261,7 +417,8 @@
 	\makebox[0pt][r]{#1\hspace{6pt}}%
 }
 
-\titleformat{\section} {\normalfont\Large\bfseries}
+\titleformat{\section}
+{\normalfont\Large\bfseries}
 {\marginsecnumber\thesection} {0pt} {}
 \titleformat{\subsection} {\normalfont\large\bfseries}
 {\marginsecnumber\thesubsection} {0pt} {}
@@ -296,6 +453,39 @@
 
 	\definecolor{catback}{HTML}{585b70}
 	\definecolor{catground}{HTML}{eff1f5}
+
+	\newtcblisting{Code}[2]{%
+		colback=nord13!20,
+		listing only,
+		minted style=colorful,
+		title={#2},
+		fonttitle=\small,
+		listing engine=minted,
+		enhanced,
+		minted language=#1,
+		minted options={
+				fontsize=\small,
+				tabsize=4,
+				xleftmargin=0mm,
+				numbersep=7.5mm,
+				linenos,
+				autogobble,
+				breaklines=true,
+				highlightcolor=orange!50,
+			},
+		overlay={%
+				\node[] at ([xshift=-8mm, yshift=-3mm]frame.north
+				east) {\textcolor{yellow!50}{%
+						\mintinline[fontsize=\small]{text}{#1}%
+					}
+				};
+			},
+		sharp corners,
+		toprule=0pt,
+		rightrule=0pt,
+		leftrule=0pt,
+		bottomrule=0pt,
+	}
 
 	% Set box and font rules for inputminted command for paper
 	\newtcbinputlisting{\codeinputpaper}[4][]{%
@@ -340,15 +530,6 @@
 		minted options app={#1}}
 
 	\RequirePackage{xpatch}
-
-	\newenvironment{code}[1]
-	{%
-		\VerbatimEnvironment
-		\begin{minted}{#1}%
-}
-{%
-  \end{minted}%
-	}
 	%
 	\xpatchcmd{\mintinline}{\begingroup}{\begingroup\let\itshape\relax}{}{}
 	\xpatchcmd{\minted}{\VerbatimEnvironment}{\VerbatimEnvironment\let\itshape\relax}{}{}
@@ -406,5 +587,6 @@
 	}
 }{}
 
+\input{/Users/danielmcguiness/GitHub/Hebdomon-LaTeX-Document-Class/hebdomon/tex/contents/declarations.sty}
 
 \endinput
